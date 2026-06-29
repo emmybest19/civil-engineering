@@ -1,12 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Button from "@/components/Button";
 
-export default function LoginPage() {
+function LoginForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const justRegistered = searchParams.get("registered") === "1";
+
   const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -40,6 +43,12 @@ export default function LoginPage() {
   return (
     <div className="px-6 py-16 max-w-md mx-auto">
       <h1 className="text-2xl font-bold mb-6 text-center">Welcome back</h1>
+
+      {justRegistered && (
+        <p className="mb-4 rounded bg-green-50 border border-green-200 text-green-700 text-sm px-3 py-2">
+          Account created successfully. Please sign in.
+        </p>
+      )}
 
       {error && (
         <p className="mb-4 rounded bg-red-50 border border-red-200 text-red-700 text-sm px-3 py-2">
@@ -82,5 +91,13 @@ export default function LoginPage() {
         </Link>
       </p>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div className="px-6 py-16 text-center text-gray-500">Loading…</div>}>
+      <LoginForm />
+    </Suspense>
   );
 }

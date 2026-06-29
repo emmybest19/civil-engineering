@@ -31,7 +31,7 @@ export default async function DashboardLayout({ children }) {
   const items = navByRole[user.role] || [];
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="md:flex min-h-screen bg-gray-50">
       <DashboardSidebar user={user} items={items} />
       <div className="flex-1 min-w-0">
         <main className="p-6 md:p-8 max-w-5xl mx-auto">{children}</main>

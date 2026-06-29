@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
 import User from "@/models/User";
-import { hashPassword, signToken, SESSION_COOKIE, cookieOptions } from "@/lib/auth";
+import { hashPassword } from "@/lib/auth";
 
 export async function POST(request) {
   try {
@@ -44,20 +44,21 @@ export async function POST(request) {
       position: safeRole === "teacher" ? position : undefined,
     });
 
-    const token = await signToken({
-      id: user._id.toString(),
-      role: user.role,
-      name: user.name,
-      email: user.email,
-    });
-
-    const res = NextResponse.json({
+    // Account created but not logged in — the user signs in afterwards.
+    return NextResponse.json({
       user: { id: user._id, name: user.name, email: user.email, role: user.role },
     });
-    res.cookies.set(SESSION_COOKIE, token, cookieOptions);
-    return res;
   } catch (err) {
     console.error("register error", err);
-    return NextResponse.json({ error: "Something went wrong." }, { status: 500 });
+    const isDbError = /ENOTFOUND|ECONNREFUSED|querySrv|timed out|ETIMEDOUT|authentication failed|bad auth/i.test(
+      err?.message || ""
+    );
+    const message = isDbError
+      ? "Could not reach the database. Check MONGODB_URI in .env.local."
+      : "Something went wrong.";
+    return NextResponse.json(
+      { error: message, detail: process.env.NODE_ENV !== "production" ? err?.message : undefined },
+      { status: 500 }
+    );
   }
 }

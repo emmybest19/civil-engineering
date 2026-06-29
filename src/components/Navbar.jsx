@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
+import { FaTimes } from "react-icons/fa";
+import { IoMdMenu } from "react-icons/io";
 
 const links = [
   { href: "/", label: "Home" },
@@ -87,7 +89,7 @@ export default function Navbar({ user }) {
           onClick={() => setOpen((o) => !o)}
           aria-label="Toggle menu"
         >
-          ☰
+          {open ? <FaTimes /> : <IoMdMenu />}
         </button>
       </div>
 
