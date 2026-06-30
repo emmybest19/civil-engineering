@@ -1,11 +1,16 @@
 import Link from "next/link";
+import Image from "next/image";
 import Card from "@/components/Card";
+import Carousel from "@/components/Carousel";
 
 export default function Home() {
   return (
     <div className="px-6 py-12 max-w-7xl mx-auto space-y-16">
+      {/* Carousel */}
+      <Carousel />
+
       {/* Hero */}
-      <section className="text-center py-12">
+      <section className="text-center">
         <h1 className="text-4xl md:text-5xl font-bold mb-4">
           Department of <span className="text-primary">Civil Engineering</span>
         </h1>
@@ -30,13 +35,25 @@ export default function Home() {
       </section>
 
       {/* Overview */}
-      <section>
-        <h2 className="text-2xl font-semibold mb-3">About the Department</h2>
-        <p className="text-gray-600 max-w-3xl">
-          The Civil Engineering Department focuses on cutting-edge research and
-          quality education in structural, environmental, geotechnical, and
-          transportation engineering.
-        </p>
+      <section className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+        <div>
+          <h2 className="text-2xl font-semibold mb-3">About the Department</h2>
+          <p className="text-gray-600">
+            The Civil Engineering Department focuses on cutting-edge research and
+            quality education in structural, environmental, geotechnical, and
+            transportation engineering. Our graduates go on to design and build
+            the infrastructure that communities depend on.
+          </p>
+        </div>
+        <div className="relative h-64 rounded-xl overflow-hidden shadow-sm">
+          <Image
+            src="/images/construction-site.jpg"
+            alt="Engineer reviewing construction blueprints"
+            fill
+            sizes="(max-width: 768px) 100vw, 50vw"
+            className="object-cover"
+          />
+        </div>
       </section>
 
       {/* Stats */}
@@ -72,6 +89,32 @@ export default function Home() {
               $2M grant awarded for sustainable infrastructure research.
             </p>
           </Card>
+        </div>
+      </section>
+
+      {/* CTA banner */}
+      <section className="relative rounded-xl overflow-hidden">
+        <Image
+          src="/images/city-highway.jpg"
+          alt="City skyline and highway at dusk"
+          fill
+          sizes="100vw"
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-primary-dark/80" />
+        <div className="relative px-6 py-14 text-center text-white">
+          <h2 className="text-2xl md:text-3xl font-bold mb-3">
+            Join the Civil Engineering Portal
+          </h2>
+          <p className="text-white/90 mb-6 max-w-xl mx-auto">
+            Access announcements, results, and the department directory in one place.
+          </p>
+          <Link
+            href="/register"
+            className="inline-block px-6 py-3 bg-secondary-light text-primary-dark rounded font-semibold hover:brightness-95 transition"
+          >
+            Get Started
+          </Link>
         </div>
       </section>
     </div>
