@@ -55,7 +55,7 @@ export default function About() {
       <section>
         <h2 className="text-xl font-semibold mb-2 text-primary">Head of Department</h2>
         <p className="text-gray-600">
-          Prof. (Name) — leading the department with a focus on research
+          Prof Mrs Ekpenyong Benerdine — leading the department with a focus on research
           excellence and student success.
         </p>
       </section>
