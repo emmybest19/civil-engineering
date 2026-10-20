@@ -84,3 +84,9 @@ src/
 The dashboards render overview shells. Data CRUD (results upload, announcements,
 lecturer/student management) needs API routes under `src/app/api/` plus the
 sidebar sub-pages. Models are already defined in `src/models/`.
+## Further reading
+- [Case study](CASE_STUDY.md)
+- [Trade-offs](TRADEOFFS.md)
+
+## License
+MIT
